@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Canvas in WASM</title>
+  <style media="screen">
+    body, canvas {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+    <canvas id="canvas" width="2000" height="2000"></canvas>
+  <script src="canvas.js"></script>
+  <script>
+      // Create Canvas context
+      const canvas = document.getElementById('canvas')
+      const context = canvas.getContext('2d')
+
+      // Render circles in canvas
+      const render = () => {
+          // get circle data from C
+          let circles = _getCircles()
+
+          console.log(`Got ${circles} circles`)
+
+          // Draw Circle
+          context.beginPath()
+          context.arc(300, 300, 150, 0, 2*Math.PI, false)
+          context.fillStyle = 'dodgerblue'
+          context.fill()
+
+          console.log('Rendered');
+
+          // Request next animation frame and re-render with updated circles
+          //window.requestAnimationFrame( render )
+      }
+  </script>
+</body>
+</html>
