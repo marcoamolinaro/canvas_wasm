@@ -20,17 +20,27 @@
       const context = canvas.getContext('2d')
 
       // Render circles in canvas
-      const render = () => {
-          // get circle data from C
-          let circles = _getCircles()
+      const render = ( dataLength, circleStructSize ) => {
 
-          console.log(`Got ${circles} circles`)
+          console.log('dataLength', dataLength)
 
-          // Draw Circle
-          context.beginPath()
-          context.arc(300, 300, 150, 0, 2*Math.PI, false)
-          context.fillStyle = 'dodgerblue'
-          context.fill()
+          // Get circle data from C - Typed Array
+          let circles = new Int32Array( Module.HEAP32.buffer, _getCircles(), dataLength )
+
+          // loop data and get circles chunks
+          for (let i = 0; i < circles.length; i+=circleStructSize ) {
+
+            // get circles data chunks
+            let circle = circles.slice(i, i+circleStructSize)
+
+
+            // Draw Circle
+            context.beginPath()
+            context.arc(circle[0], circle[1], circle[2], 0, 2*Math.PI, false)
+            context.fillStyle = `rgba(${circle[3]}, ${circle[4]}, ${circle[5]}, 0.75)`
+            context.fill()
+          }
+
 
           console.log('Rendered');
 
