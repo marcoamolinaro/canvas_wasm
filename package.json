@@ -1,0 +1,12 @@
+{
+  "name": "canvas_wasm",
+  "version": "1.0.0",
+  "description": "Project Canvas in WebAssembly",
+  "main": "server.js",
+  "repository": "https://github.com/marcoamolinaro/canvas_wasm.git",
+  "author": "marcoamolinaro <molinaromarcoaurelio@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
